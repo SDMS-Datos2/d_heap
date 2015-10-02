@@ -16,20 +16,26 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <pthread.h>
+#include <string.h>
 #include "Constantes.h"
+#include "Cliente_Thread.h"
 
+/**
+ * clase que se utiliza para contener los hilos de los servidores
+ * que tendran la informacion si se haran los d_callocs y mas.
+ * @param servers dato que va a recibir el contructor, es un dato 
+ * entero, esta es la cantidad de servers con la que se va a estar trabajando.
+ */
 class Cliente :public Constantes{
 public:
-    Cliente(const char* pIP, int pPort);
+    Cliente(int servers);
     virtual ~Cliente();
-    void interactuar(const char* pIP, int pPort);
+    void startThread(char* pIP, int Pport);
 private:
-    int _sockfd, _portno, _n, _id;
-    struct hostent * _server;
-    char _buffer[DosCientaSeis];
-    pthread_t hilos;
-    struct sockaddr_in _serv_addr;
-    void error(const char* pMsg);
+    int _servers;
+    int _cantHilos;
+    pthread_t* _hilos;
+    Cliente_Thread *_servidores;
 };
 
 #endif	/* CLIENTE_H */

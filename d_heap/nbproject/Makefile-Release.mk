@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Cliente.o \
+	${OBJECTDIR}/Cliente_Thread.o \
 	${OBJECTDIR}/Constantes.o \
 	${OBJECTDIR}/main.o
 
@@ -68,6 +69,11 @@ ${OBJECTDIR}/Cliente.o: Cliente.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Cliente.o Cliente.cpp
+
+${OBJECTDIR}/Cliente_Thread.o: Cliente_Thread.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Cliente_Thread.o Cliente_Thread.cpp
 
 ${OBJECTDIR}/Constantes.o: Constantes.cpp 
 	${MKDIR} -p ${OBJECTDIR}

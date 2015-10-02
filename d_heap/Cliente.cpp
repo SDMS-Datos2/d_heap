@@ -5,96 +5,41 @@
  * Created on 12 September 2015, 22:56
  */
 
-#include <string.h>
 #include "Cliente.h"
 
 using namespace std;
-
 /**
- * constructor que inicializa los datos con el cliente y arranca el listener
- * que va a estar escuchando los pedidos del servidor y hacer lo que se le 
- * pide.
- * @param pIP dato tipo char* que es el ip del servidor al cual nos 
- * conectaremos.
- * @param pPort dato tipo entero que es el puerto por el cual nos conectamos
- * al server.
+ * constructor que inicializa la clase y recibe la cantidad maxima de 
+ * servidores que proveen memoria.
+ * @param servers dato entero que es la cantidad de servidores con la vamos a
+ * arrancar.
  */
-Cliente::Cliente(const char* pIP, int pPort) {
-    /*_portno = pPort;
-    _sockfd = socket(AF_INET, SOCK_STREAM, cero);
-    if (_sockfd < cero) 
-        error(error1);
-    _server = gethostbyname(pIP);
-    if (_server == NULL) {
-        fprintf(stderr,error3);
-        exit(cero);
-    }
-    bzero((char *) &_serv_addr, sizeof(_serv_addr));
-    _serv_addr.sin_family = AF_INET;
-    bcopy((char *)_server->h_addr, 
-         (char *)&_serv_addr.sin_addr.s_addr,_server->h_length);
-    _serv_addr.sin_port = htons(_portno);
-    if (connect(_sockfd, (struct sockaddr *) &_serv_addr, 
-            sizeof(_serv_addr)) < cero) 
-        error(error2);
-    if(_debug)
-        printf("Please enter the message: ");
-    interactuar();
-    close(_sockfd);*/
-    interactuar( pIP, pPort);
+Cliente::Cliente(int servers) {
+    _servers=servers;
+    _cantHilos=cero;
+    _hilos=(pthread_t *) malloc(_servers*sizeof(pthread_t));
+    _servidores=(Cliente_Thread*)malloc(_servers*sizeof(Cliente_Thread));
 }
 
 /**
  * destructor de la clase.
  */
 Cliente::~Cliente() {
+    free(_hilos);
+    free(_servidores);
 }
 
 /**
- * metodo que retorna a consola si hubo un error de consola.
- * @param pMsg dato tipo char* que es el mensaje de error que se
- * genera.
+ * metodo que inicializa los hilos de comunicacion contra los servidores
+ * @param pIP dato char* que es la direccion IP del servidor.
+ * @param Pport dato que es un entero, es el numero de puerto para la conexion
+ * contra el servidor.
  */
-void Cliente::error(const char* pMsg) {
-    perror(pMsg);
-    exit(uno);
+void Cliente::startThread(char* pIP, int Pport) {
+    _servidores=new Cliente_Thread(pIP,Pport);
+    //pthread_create(_hilos,NULL,&Cliente_Thread::getInteract,_servidores);
+    if(_cantHilos<_servers){
+        _servidores++;_cantHilos++;_hilos++;
+    }
 }
 
-/**
- * metodo que interactua contra el servidor para enviar y recibir mensajes.
- */
-void Cliente::interactuar(const char* pIP, int pPort) {
-    _portno = pPort;
-    _sockfd = socket(AF_INET, SOCK_STREAM, cero);
-    if (_sockfd < cero) 
-        error(error1);
-    _server = gethostbyname(pIP);
-    if (_server == NULL) {
-        fprintf(stderr,error3);
-        exit(cero);
-    }
-    bzero((char *) &_serv_addr, sizeof(_serv_addr));
-    _serv_addr.sin_family = AF_INET;
-    bcopy((char *)_server->h_addr,
-         (char *)&_serv_addr.sin_addr.s_addr,_server->h_length);
-    _serv_addr.sin_port = htons(_portno);
-    if (connect(_sockfd, (struct sockaddr *) &_serv_addr, 
-            sizeof(_serv_addr)) < cero) 
-        error(error2);
-    if(_debug)
-        printf("Please enter the message: ");
-    //////////////////////////////////////////
-    while(true){
-        bzero(_buffer,DosCientaSeis);
-        fgets(_buffer,DosCientaSeis-uno,stdin);
-        _n = write(_sockfd, _buffer, getLenght(_buffer));
-        if (_n < cero) 
-             error(error4);
-        bzero(_buffer,DosCientaSeis);
-        _n = read(_sockfd, _buffer, DosCientaSeis-uno);
-        if (_n < cero) 
-             error(error5);
-        if(_debug)
-            printf("%s\n", _buffer);
-    }
-}

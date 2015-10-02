@@ -8,8 +8,16 @@
 #ifndef CONSTANTES_H
 #define	CONSTANTES_H
 
+/**
+ * interface de constantes para utilizarce en el codigo.
+ */
 class Constantes {
 public:
+    /**
+     * MaxServers=2;
+     * es la cantidad de servidores a la que nos vamos a conectar.
+     */
+    static const int MaxServers=2;
     /**
      * bandera de debug
      */

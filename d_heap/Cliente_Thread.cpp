@@ -44,7 +44,8 @@ void *Cliente_Thread::interactuar(void) {
     }
     bzero((char *) &_serv_addr, sizeof(_serv_addr));
     _serv_addr.sin_family = AF_INET;
-    bcopy((char *)_server->h_addr,(char *)&_serv_addr.sin_addr.s_addr,_server->h_length);
+    bcopy((char *)_server->h_addr,(char *)&_serv_addr.sin_addr.s_addr,
+            _server->h_length);
     _serv_addr.sin_port = htons(_portno);
     if (connect(_sockfd, (struct sockaddr *) &_serv_addr, 
             sizeof(_serv_addr)) < cero) 
@@ -83,7 +84,7 @@ void Cliente_Thread::error(const char* pMsg) {
  * @return retorna un char*, este es el ID del servidor.
  */
 char* Cliente_Thread::getID() {
-
+    return _id;
 }
 
 /**
@@ -92,5 +93,5 @@ char* Cliente_Thread::getID() {
  * servidor.
  */
 int Cliente_Thread::getSocktFd() {
-
+    return _sockfd;
 }

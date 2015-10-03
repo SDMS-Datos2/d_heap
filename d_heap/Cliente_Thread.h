@@ -35,8 +35,8 @@ public:
         return ((Cliente_Thread*) context)->interactuar();
     }
 private:
-    int _sockfd, _portno, _n, _id;
-    char* _ip;
+    int _sockfd, _portno, _n ;
+    char* _ip,_id;
     char _buffer[DosCientaSeis];
     struct hostent * _server;
     struct sockaddr_in _serv_addr;

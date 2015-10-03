@@ -38,6 +38,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/Cliente.o \
 	${OBJECTDIR}/Cliente_Thread.o \
 	${OBJECTDIR}/Constantes.o \
+	${OBJECTDIR}/d_pointer_size_type.o \
+	${OBJECTDIR}/darray.o \
+	${OBJECTDIR}/dchar.o \
+	${OBJECTDIR}/dfloat.o \
+	${OBJECTDIR}/dheap.o \
+	${OBJECTDIR}/dint.o \
+	${OBJECTDIR}/dlong.o \
+	${OBJECTDIR}/lector.o \
 	${OBJECTDIR}/main.o
 
 
@@ -79,6 +87,46 @@ ${OBJECTDIR}/Constantes.o: Constantes.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Constantes.o Constantes.cpp
+
+${OBJECTDIR}/d_pointer_size_type.o: d_pointer_size_type.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/d_pointer_size_type.o d_pointer_size_type.cpp
+
+${OBJECTDIR}/darray.o: darray.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/darray.o darray.cpp
+
+${OBJECTDIR}/dchar.o: dchar.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dchar.o dchar.cpp
+
+${OBJECTDIR}/dfloat.o: dfloat.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dfloat.o dfloat.cpp
+
+${OBJECTDIR}/dheap.o: dheap.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dheap.o dheap.cpp
+
+${OBJECTDIR}/dint.o: dint.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dint.o dint.cpp
+
+${OBJECTDIR}/dlong.o: dlong.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dlong.o dlong.cpp
+
+${OBJECTDIR}/lector.o: lector.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lector.o lector.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
